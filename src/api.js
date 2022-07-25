@@ -24,6 +24,8 @@ const currentDay = getCurrentDay();
 const currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
 const lastYear = `${currentYear - 1}-${currentMonth}-${currentDay}`;
 const nextYear = `${currentYear + 1}-${currentMonth}-${currentDay}`;
+console.log(lastYear);
+console.log(currentDate);
 const popular_games = `games?key=228d121a4b5e44feafeab22654f58fc8&dates=${lastYear},${currentDate}&ordering=-rating&page_size=10`;
 const upcoming_games = `games?key=228d121a4b5e44feafeab22654f58fc8&dates=${currentDate},${nextYear}&ordering=-added&page_size=10`;
 const newGames = `games?key=228d121a4b5e44feafeab22654f58fc8&dates=${lastYear},${currentDate}&ordering=-released&page_size=10`;
