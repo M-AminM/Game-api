@@ -5,6 +5,7 @@ import { loadGames } from "../actions/gameAction";
 import Game from "../components/Game";
 import styled from "styled-components";
 import GameDetails from "../components/GameDetails";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -14,9 +15,12 @@ const Home = () => {
 
   const { upcoming, popular, newGames } = useSelector((state) => state.game);
 
+  const location = useLocation();
+  const pathname = location.pathname.split("/")[2];
+
   return (
     <GameList>
-      <GameDetails />
+      {pathname && <GameDetails />}
       <h2>Upcoming Games</h2>
       <GamesDetail>
         {upcoming.map((game) => (
@@ -57,7 +61,6 @@ const Home = () => {
   );
 };
 
-
 const GameList = styled.div`
   padding: 0rem 5rem;
   h2 {
@@ -67,11 +70,11 @@ const GameList = styled.div`
 `;
 
 const GamesDetail = styled.div`
-    min-height: 80vh;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-    grid-column-gap: 3rem;
-    grid-row-gap: 5rem;
+  min-height: 80vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-column-gap: 3rem;
+  grid-row-gap: 5rem;
 `;
 
 export default Home;

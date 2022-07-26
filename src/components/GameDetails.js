@@ -10,8 +10,11 @@ import xbox from "../img/xbox.svg";
 import nintendo from "../img/nintendo.svg";
 import apple from "../img/apple.svg";
 import gamepad from "../img/gamepad.svg";
+import { useHistory } from "react-router-dom";
 
 const GameDetails = () => {
+  const history = useHistory();
+
   const { game, screen } = useSelector((state) => state.detail);
 
   const getStars = () => {
@@ -44,19 +47,26 @@ const GameDetails = () => {
     }
   };
 
+  const exitHandler = (e) => {
+    const element = e.target;
+    if(element.classList.contains("card")) {
+      document.body.style.overflow = "auto";
+      history.push("/");
+    }
+  }
+
   return (
-    <GameDetailsStyle>
+    <GameDetailsStyle className="card" onClick={exitHandler}>
       <Detail>
         <Info>
-          <div className="info">
+          <div className="info">  
             <h1>{game.name}</h1>
             <p>Rating: {game.rating}</p>
             <div className="stars">{getStars()}</div>
           </div>
           <Platform>
-          
-            {game.platforms.map((data) => (
-              <img src={getPlatform(data.platform.name)} />
+            {game.platforms.map((data) => ( 
+              <img key={data.platform.id} src={getPlatform(data.platform.name)} />
             ))}
           </Platform>
         </Info>
@@ -98,7 +108,7 @@ const Detail = styled.div`
   position: absolute;
   background: white;
   border-radius: 1rem;
-  left: 10%;
+  left: 8%;
   padding: 1rem 2rem;
   img {
     width: 100%;
@@ -116,19 +126,17 @@ const Info = styled.div`
     font-size: 1.5rem;
   }
   .stars {
-    width: 50%;
+    width: 4rem;
     display: flex;
     padding-bottom: 4rem;
   }
 `;
 const Platform = styled.div`
-
   display: flex;
   justify-content: flex-end;
   img {
     margin-left: 1rem;
-    width: 50%;
-
+    width: 3rem;
   }
 `;
 const Media = styled.div`
