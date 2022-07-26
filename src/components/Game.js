@@ -1,8 +1,15 @@
 import styled from "styled-components";
+import { useDispatch } from "react-redux/es/exports";
+import detailAction from "../actions/detailAction";
 
 const Game = ({ name, released, id, image }) => {
+  const dispatch = useDispatch();
+
+  const detailHandler = () => {
+    dispatch(detailAction(id));
+  };
   return (
-    <GameStyle>
+    <GameStyle onClick={detailHandler}>
       <div className="name">{name}</div>
       <p>{released}</p>
       <div>
@@ -17,7 +24,8 @@ const GameStyle = styled.div`
   font-size: 1.5rem;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
-  .name, p {
+  .name,
+  p {
     padding: 1rem;
   }
   img {

@@ -2,8 +2,9 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { loadGames } from "../actions/gameAction";
-import Game from "../actions/components/Game";
+import Game from "../components/Game";
 import styled from "styled-components";
+import GameDetails from "../components/GameDetails";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Home = () => {
 
   return (
     <GameList>
+      <GameDetails />
       <h2>Upcoming Games</h2>
       <GamesDetail>
         {upcoming.map((game) => (
