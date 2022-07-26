@@ -13,7 +13,9 @@ const Home = () => {
     dispatch(loadGames());
   }, []);
 
-  const { upcoming, popular, newGames } = useSelector((state) => state.game);
+  const { upcoming, popular, newGames, search } = useSelector(
+    (state) => state.game
+  );
 
   const location = useLocation();
   const pathname = location.pathname.split("/")[2];
@@ -21,6 +23,25 @@ const Home = () => {
   return (
     <GameList>
       {pathname && <GameDetails />}
+      {search.length ? (
+        <div className="searched">
+          <h2>Searched Games</h2>
+          <GamesDetail>
+            {search.map((game) => (
+              <Game
+                name={game.name}
+                released={game.released}
+                id={game.id}
+                image={game.background_image}
+                key={game.id}
+              />
+            ))}
+          </GamesDetail>
+        </div>
+      ) : (
+        ""
+      )}
+
       <h2>Upcoming Games</h2>
       <GamesDetail>
         {upcoming.map((game) => (

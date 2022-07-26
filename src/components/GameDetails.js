@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 const GameDetails = () => {
   const history = useHistory();
 
-  const { game, screen } = useSelector((state) => state.detail);
+  const { game, screen, isLoading } = useSelector((state) => state.detail);
 
   const getStars = () => {
     const stars = [];
@@ -49,38 +49,45 @@ const GameDetails = () => {
 
   const exitHandler = (e) => {
     const element = e.target;
-    if(element.classList.contains("card")) {
+    if (element.classList.contains("card")) {
       document.body.style.overflow = "auto";
       history.push("/");
     }
-  }
+  };
 
   return (
-    <GameDetailsStyle className="card" onClick={exitHandler}>
-      <Detail>
-        <Info>
-          <div className="info">  
-            <h1>{game.name}</h1>
-            <p>Rating: {game.rating}</p>
-            <div className="stars">{getStars()}</div>
-          </div>
-          <Platform>
-            {game.platforms.map((data) => ( 
-              <img key={data.platform.id} src={getPlatform(data.platform.name)} />
-            ))}
-          </Platform>
-        </Info>
-        <Media>
-          <img src={game.background_image} />
-        </Media>
-        <Decription>{game.description_raw}</Decription>
-        <Gallery>
-          {screen.results.map((data) => (
-            <img src={data.image} />
-          ))}
-        </Gallery>
-      </Detail>
-    </GameDetailsStyle>
+    <>
+      {isLoading && (
+        <GameDetailsStyle className="card" onClick={exitHandler}>
+          <Detail>
+            <Info>
+              <div className="info">
+                <h1>{game.name}</h1>
+                <p>Rating: {game.rating}</p>
+                <div className="stars">{getStars()}</div>
+              </div>
+              <Platform>
+                {game.platforms.map((data) => (
+                  <img
+                    key={data.platform.id}
+                    src={getPlatform(data.platform.name)}
+                  />
+                ))}
+              </Platform>
+            </Info>
+            <Media>
+              <img src={game.background_image} />
+            </Media>
+            <Decription>{game.description_raw}</Decription>
+            <Gallery>
+              {screen.results.map((data) => (
+                <img src={data.image} />
+              ))}
+            </Gallery>
+          </Detail>
+        </GameDetailsStyle>
+      )}
+    </>
   );
 };
 

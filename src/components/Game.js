@@ -7,7 +7,7 @@ const Game = ({ name, released, id, image }) => {
   const dispatch = useDispatch();
 
   const detailHandler = () => {
-    document.body.style.overflow = "hidden"
+    document.body.style.overflow = "hidden";
     dispatch(detailAction(id));
   };
   return (
@@ -29,7 +29,8 @@ const GameStyle = styled.div`
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
 
-  .name,p {
+  .name,
+  p {
     margin-top: 0.8rem;
     text-align: center;
   }
